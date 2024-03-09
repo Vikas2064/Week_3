@@ -22,7 +22,7 @@ const coursesSchema = new mongoose.Schema({
     publisher:Boolean
 })
 const User= mongoose.model('user',userSchema);
-const Admin=mongoose.model('admin',coursesSchema);
+const Admin=mongoose.model('admin',adminSchema);
 const Course= mongoose.model('course',coursesSchema);
 
 module.exports={

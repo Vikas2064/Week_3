@@ -1,4 +1,5 @@
 // import { useState } from 'react'
+import Addcourse from './Addcourse.jsx'
 import './App.css'
 import Appbar from './Appbar.jsx'
 import Signin from './Signin.jsx'
@@ -11,7 +12,7 @@ function App() {
     <>
       <Appbar />
         <Routes>
-            <Route path="/" element={<>this is home page</>}/>
+            <Route path="/addcourse" element={<Addcourse />}/>
             <Route path="/login" element={<Signin />}></Route>
             <Route path="/Signup" element={<Signup />}></Route>
         </Routes>
