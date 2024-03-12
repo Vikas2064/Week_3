@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom';
 function Addcourse() {
     const [title, settitle] = useState("");
     const [description, setdescription] = useState("");
+    const [imageUrl,setImageUrl]=useState("")
     const Navigate= useNavigate()
     const addCourse = async () => {
         const admin = localStorage.getItem("token");
@@ -16,8 +17,9 @@ function Addcourse() {
                     'Content-Type': 'application/json',
                     'Authorization' :"Bearer " + localStorage.getItem("token")
                 },
-                body: JSON.stringify({ title, description,
-                imageLink:"",
+                body: JSON.stringify({ title,
+                description,
+                imageLink:imageUrl,
                 published: true
                 })
             })
@@ -53,6 +55,11 @@ function Addcourse() {
                     <br />
                     <TextField fullWidth={true} id="outline-basic" label="Description" variant="outlined"
                         onChange={(e) => { setdescription(e.target.value) }}
+                    />
+                    <br />
+                    <br />
+                    <TextField fullWidth={true} id="outline-basic" label="imageUrl" variant="outlined"
+                        onChange={(e) => { setImageUrl(e.target.value) }}
                     />
                     <br />
                     <br />

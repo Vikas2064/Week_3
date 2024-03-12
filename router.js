@@ -50,7 +50,32 @@ const adminauthentication = (req,res,next)=>{
         return res.status(402).send("user does not exist")
     }
 }
-router.get("/admin/me",adminauthentication,(req,res)=>{
+const authenticateJwt=(req,res,next)=>{
+      const authHeader=req.headers.authorization;
+      
+      if(authHeader)
+      {
+         const token= authHeader.split(' ')[1];
+        
+         jwt.verify(token,SECRET,(err,user)=>{
+            if(err)
+            { 
+               return  res.status(403).json({message:"there is some error"});
+            }
+            else
+            {
+                req.user=user;
+                next();
+            //    return  res.status(201).json({message:"user logged in successfully",status:true});
+            }
+         })
+      }
+      else
+      {
+        res.status(404).json({message:"invalid user",status:false})
+      }
+}
+router.get("/admin/me",authenticateJwt,(req,res)=>{
     res.json({
         username:req.user.username
     })
@@ -70,15 +95,16 @@ router.post("/admin/signup",async(req,res)=>{
         res.status(201).json({message:"admin created successfully",token,status:true})
     }
 }); 
-router.post("/admin/login",(req,res)=>{
+router.post("/admin/login",async (req,res)=>{
      const {username,password}= req.body;
-     const admin= Admin.findOne(username,password);
+     const admin=await  Admin.findOne({username,password});
      if(admin){
         const token=jwt.sign({username,role:"admin"},SECRET,{expiresIn:"1h"});
         res.status(201).json({message:"Logged in successfully",token,status:true});
      }
      else
      {
+        
         res.status(403).json({message:"Invalid username and password",status:false});
      }
 })

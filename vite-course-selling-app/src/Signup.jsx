@@ -8,8 +8,7 @@ function Signup(){
         let data=await  fetch("http://localhost:8080/admin/signup",{
           method: "POST",
           headers: {
-            'Content-Type': 'application/json',
-            "Authorization" :"Bearer " + localStorage.getItem("token")
+            'Content-Type': 'application/json'
         },
           body: JSON.stringify({username,password})
         })
@@ -17,6 +16,7 @@ function Signup(){
         if(response.status)
         {
           localStorage.setItem("token",response.token)
+          localStorage.setItem("username",username)
           alert(response.message);
         }
         else

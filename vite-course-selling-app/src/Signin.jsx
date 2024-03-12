@@ -24,6 +24,7 @@ function Signin(){
         if(response.status)
         {
           localStorage.setItem("token",response.token)
+          localStorage.setItem("username",username)
           alert(response.message);
         }
         else
