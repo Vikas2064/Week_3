@@ -1,11 +1,11 @@
-import { Button, Typography } from "@mui/material"
+import { Button, Typography,LinearProgress } from "@mui/material"
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
 const Appbar = () => {
     const [loggedIn, setLoggedIn] = useState(false);
     const [username, setUsername] = useState("");
-    const [change, setChange] = useState(false) 
+    const [loading,setLoading] = useState(true);
     useEffect(()=>{
        setInterval(()=>{
           const username=localStorage.getItem("username");
@@ -14,8 +14,15 @@ const Appbar = () => {
             setUsername(username);
             setLoggedIn(true)
           }
-       },100)
+          setLoading(false)
+       },300)
     },[])
+    if(loggedIn==false && loading)
+    {
+        return <div>
+            <LinearProgress color="secondary" />
+        </div>
+    }
     if (!loggedIn) {
         return (
             <>
@@ -55,8 +62,8 @@ const Appbar = () => {
                         onClick={() => {
                              localStorage.removeItem('token')
                              localStorage.removeItem('username');
-                             setChange(!change);
                              window.location='/'
+                             setLoggedIn(false)
                         }}
                     >
                         Logout

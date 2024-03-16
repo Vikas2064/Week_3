@@ -15,7 +15,7 @@ const Courses =()=>{
         })
     },[])
     return (
-        <div style={{display: 'flex',flexWrap:"wrap"}}> 
+        <div style={{display: 'flex',flexWrap:"wrap",justifyContent:"center"}}> 
           {courses.map((course,i)=>{
             return (<Course course={course} key={i}/>)
           })}
