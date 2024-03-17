@@ -6,7 +6,7 @@ const SECRET="sdfjskddfs"
 const {User,Admin,Course}=require('./Models/schemas');
 const generatejwt = (user) => { 
     const payload = {username:user.username};
-    return jwt.sign(payload,SECRET,{expiresIn:"1h"});
+    return jwt.sign(payload,SECRET,{expiresIn:"24h"});
 }
 function userauthentication(req,res,next){
     const authHeader=req.headers.authorization;
@@ -91,7 +91,7 @@ router.post("/admin/signup",async(req,res)=>{
     {
         const newAdmin= new Admin({username,password});
         await newAdmin.save();
-        const token = jwt.sign({username,role:"admin"},SECRET,{expiresIn:"1h"})
+        const token = jwt.sign({username,role:"admin"},SECRET,{expiresIn:"24h"})
         res.status(201).json({message:"admin created successfully",token,status:true})
     }
 }); 
@@ -99,7 +99,7 @@ router.post("/admin/login",async (req,res)=>{
      const {username,password}= req.body;
      const admin=await  Admin.findOne({username,password});
      if(admin){
-        const token=jwt.sign({username,role:"admin"},SECRET,{expiresIn:"1h"});
+        const token=jwt.sign({username,role:"admin"},SECRET,{expiresIn:"24h"});
         res.status(201).json({message:"Logged in successfully",token,status:true});
      }
      else
@@ -116,14 +116,16 @@ router.post('/admin/courses',adminauthentication,async(req,res)=>{
     res.status(201).json({message:"courses created successfully",courseId:course.id,status:true});
 })
 router.put("/admin/courses/:courseId",adminauthentication,async(req,res)=>{
-    const course= await Course.findByIdAndUpdate(req.params.courseId,req.body,{new:true}); 
+    // console.log(req.params.courseId)
+    const course= await Course.findByIdAndUpdate(req.params.courseId,req.body,{new:true});
+    // console.log(course._id) 
     if(course)
     {
-        res.json({message:"Course updated successfully"});
+        res.json({message:"Course updated successfully",status:true,course});
     }
     else
-    {
-        res.status(404).json({message:"Course not found"});
+    {   
+        res.status(404).json({message:"Course not found",status:false});
     }
 })
 router.get("/admin/courses",adminauthentication,async(req,res)=>{
@@ -147,7 +149,7 @@ router.get("/admin/courses",adminauthentication,async(req,res)=>{
     {
         const newUser= new User({username,password});
         await newUser.save();
-        const token = jwt.sign({username,role:"user"},SECRET,{expiresIn:"1h"})
+        const token = jwt.sign({username,role:"user"},SECRET,{expiresIn:"24h"})
         res.status(201).json({message:"User created successfully",token,status:true})
     }
  });
@@ -155,7 +157,7 @@ router.get("/admin/courses",adminauthentication,async(req,res)=>{
     const {username,password}=req.body;
     const user= await User.findOne({username: username,password:password});
     if(user){
-        const token = jwt.sign({username,role:"user"},SECRET,{expiresIn:"1h"})
+        const token = jwt.sign({username,role:"user"},SECRET,{expiresIn:"24h"})
         res.status(201).json({message:"user already exist",token});
     }
     else
