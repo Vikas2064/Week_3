@@ -139,6 +139,7 @@ router.get("/admin/courses",adminauthentication,async(req,res)=>{
         res.status(404).json({message:"Course not found"});
     }
 });
+
  router.post("/users/signup",async(req,res)=>{
     const {username,password}=req.body;
     const user= await User.findOne({username: username});
@@ -197,5 +198,17 @@ router.get("/admin/courses",adminauthentication,async(req,res)=>{
         res.status(403).send("user not found")
     }
  })
-
-module.exports=router;
+ router.get('/admin/course/:courseId',authenticateJwt,async (req, res)=>{
+    console.log("this is hello")
+    const courseId=req.params.courseId;
+    const course=await Course.findById(courseId);
+    // console.log(course)
+    res.json({course})
+})
+router.put('/admin/course/:courseId',authenticateJwt,async (req, res)=>{
+    const courseId=req.params.courseId;
+    const course=await Course.findByIdAndUpdate(courseId,req.body)
+    console.log(course)
+    res.send("course updated")
+})
+module.exports=router;    

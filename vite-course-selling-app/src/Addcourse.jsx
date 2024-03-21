@@ -6,6 +6,7 @@ function Addcourse() {
     const [title, settitle] = useState("");
     const [description, setdescription] = useState("");
     const [imageUrl,setImageUrl]=useState("")
+    const [price,setPrice] = useState(0);
     const Navigate= useNavigate()
     const addCourse = async () => {
         const admin = localStorage.getItem("token");
@@ -19,6 +20,7 @@ function Addcourse() {
                 },
                 body: JSON.stringify({ title,
                 description,
+                price:price,
                 imageLink:imageUrl,
                 published: true
                 })
@@ -60,6 +62,11 @@ function Addcourse() {
                     <br />
                     <TextField fullWidth={true} id="outline-basic" label="imageUrl" variant="outlined"
                         onChange={(e) => { setImageUrl(e.target.value) }}
+                    />
+                    <br />
+                    <br />
+                    <TextField fullWidth={true} id="outline-basic" label="Price" variant="outlined"
+                        onChange={(e) => { setPrice(e.target.value) }}
                     />
                     <br />
                     <br />

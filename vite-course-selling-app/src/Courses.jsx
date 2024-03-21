@@ -14,11 +14,17 @@ const Courses =()=>{
             })
         })
     },[])
+    if(!courses)
+    {
+        return (
+            <div>Loading........</div>
+        )
+    }
     return (
         <div style={{display: 'flex',flexWrap:"wrap",justifyContent:"center"}}> 
           {courses.map((course,i)=>{
             return (<Course course={course} key={i}/>)
-          })}
+          })}  
         </div>
     )
 }
@@ -26,8 +32,8 @@ const Courses =()=>{
 function Course(props){
     return (
         <Card style={{
-                margin:"10",
-                padding:"10",
+                margin:"10px",
+                padding:"10px",
                 width:300,
                 minHeight:200
             }} >

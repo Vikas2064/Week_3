@@ -1,29 +1,32 @@
 // import React from 'react'
 import {Button,TextField,Card,Typography} from '@mui/material';
+import axios from "axios";
 import { useState } from 'react';
 function Signup(){
     const [username,setUsername] =useState("");
     const [password,setPassword] =useState("");
     const signUp=async ()=>{
-        let data=await  fetch("http://localhost:8080/admin/signup",{
-          method: "POST",
-          headers: {
-            'Content-Type': 'application/json'
-        },
-          body: JSON.stringify({username,password})
+        // let data=await  fetch("http://localhost:8080/admin/signup",{
+        //   method: "POST",
+        //   headers: {
+        //     'Content-Type': 'application/json'
+        // },
+        //   body: JSON.stringify({username,password})
+        // })
+        const response= await axios.post("http://localhost:8080/admin/signup",{
+          username:username,
+          password:password
         })
-        const response=await data.json()
-        if(response.status)
+        if(response.data.status)
         {
-          localStorage.setItem("token",response.token)
+          localStorage.setItem("token",response.data.token)
           localStorage.setItem("username",username)
-          alert(response.message);
+          alert(response.data.message);
         }
         else
         {
-          alert(response.message)
+          alert(response.data.message)
         }
-        console.log(response)
     }
     return (
     <>

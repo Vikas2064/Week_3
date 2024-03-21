@@ -15,7 +15,7 @@ const Appbar = () => {
             setLoggedIn(true)
           }
           setLoading(false)
-       },300)
+       },0)
     },[])
     if(loggedIn==false && loading)
     {
@@ -32,7 +32,7 @@ const Appbar = () => {
                     padding: 4
                 }}>
                     <div style={{ display: "flex" }}>
-                        <Typography variant={"h6"}>LearnOnline</Typography>
+                        <Typography variant={"h6"}>Couresera</Typography>
                     </div>
                     <div>
                         <Link to={'/login'}><Button variant={"contained"} style={{ margin: 4 }}>
@@ -54,10 +54,12 @@ const Appbar = () => {
                 padding: 4
             }}>
                 <div style={{ display: "flex" }}>
-                    <Typography variant={"h6"}>LearnOnline</Typography>
+                    <Typography variant={"h6"}>Couresera</Typography>
                 </div>
                 <div style={{ display: "flex" }}>
-                    <div>{username}</div>
+                    
+                    <Link to={"/addcourse"}><Button  style={{ margin: 4 }}> Add Course</Button></Link>
+                    <Link to={"/courses"}><Button  style={{ margin: 4 }}> Courses</Button></Link>
                     <Link to={'/Signup'}><Button variant={"contained"} style={{ margin: 4 }}
                         onClick={() => {
                              localStorage.removeItem('token')
