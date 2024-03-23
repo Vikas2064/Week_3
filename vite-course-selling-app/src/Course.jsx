@@ -5,7 +5,7 @@ import axios from 'axios'
 import { Button, TextField, Card, Typography, LinearProgress, Grid } from "@mui/material"
 function Course() {
     let { courseId } = useParams();
-    let [course, setCourse] = useState([]);
+    let [course, setCourse] = useState();
     // const setCourses = useSetRecoilState(coursesState);
     useEffect(() => {
             fetch("http://localhost:8080/admin/course/" + courseId, {
@@ -28,7 +28,7 @@ function Course() {
     }
     return (
         <div>
-            <GrayTopper title={course.Title} />
+            <GrayTopper title={course.title} />
             <Grid container>
                 <Grid item lg={8} md={12} sm={12}>
                     <UpdateCard course={course} setCourse={setCourse} />
@@ -47,7 +47,7 @@ function GrayTopper(props) {
         <div style={{ height: '250px', background: "#212121", top: 0, width: "100vw", zIndex: 0, marginBottom: -250 }}>
             <div style={{ height: '250px', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
                 <div>
-                    <Typography style={{ color: 'white', fontWeight: 600, variant: "h3", textAlign: "center" }}>{props.title}</Typography>
+                    <Typography variant='h2' style={{ color: 'white', fontWeight:"600", textAlign: "center" }}>{props.title}</Typography>
                 </div>
 
             </div>
@@ -59,11 +59,10 @@ function UpdateCard(props) {
     const [description, setdescription] = useState(props.course.description);
     const [imageUrl, setImageUrl] = useState(props.course.imageLink)
     const [price, setPrice] = useState(props.course.price)
-    // console.log(course)
+    // console.log(props.course)
     // console.log(title,description,imageUrl,price)
     // const [courses, setCourses] = useRecoilState(coursesState)
     if (!props.course) {
-        
         return (
             <div>
                 Loading......
@@ -73,7 +72,7 @@ function UpdateCard(props) {
     return (
             <div style={{ display: "flex", justifyContent: "center" }}>
                 {/* {JSON.stringify(props.course)} */}
-                <Card variant="outlined" style={{ width:450,maxWidth:600, marginTop:200 }}>
+                <Card variant="outlined" style={{ width:450,maxWidth:600, marginTop:200,padding:20 }}>
                     <div style={{padding:20}}>
 
                         <Typography variant={"h4"}>
@@ -134,25 +133,23 @@ function CourseCard(props) {
     }
     return (
         <>
-            <div style={{ display: 'flex', marginTop: 50, justifyContent: 'center' }}>
+            <div style={{ display: 'flex', marginTop: 50, justifyContent: 'center', width:"100%" }}>
                 <Card style={{
                     margin: 10,
                     width: 350,
                     minHeight: 200,
-                    borderRadius: 20,
+                    borderRadius: 10,
                     marginRight: 50,
                     paddingBottom: 15,
-                    zIndex: 2
+                    zIndex: 2,
+                    padding:5
                 }}>
 
-                    <img src={props.course.imageLink} alt="This is image" width={"300"} height={"300"} />
+                    <img src={props.course.imageLink} alt="This is image" width={"350"} height={"300"} style={{borderRadius:10}} />
                     <div>
-                        <Typography textAlign={"center"} variant="h5">{props.course.title}</Typography>
-                        <br></br>
-                        <Typography textAlign={"center"} variant='h5'>{props.course.description}</Typography>
-                        <br></br>
-                        <Typography textAlign={"center"} variant='h5'>{props.course.price}</Typography>
-                        <br></br>
+                        <Typography  variant="h5">{props.course.title}</Typography>
+                        <Typography variant='subtitle2' style={{color:"gray"}}>Price</Typography>
+                        <Typography  variant='subtitle1'><b>Rs {props.course.price}</b></Typography>
                     </div>
 
                 </Card>
