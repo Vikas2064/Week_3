@@ -6,7 +6,7 @@ const SECRET="sdfjskddfs"
 const {User,Admin,Course}=require('./Models/schemas');
 const generatejwt = (user) => { 
     const payload = {username:user.username};
-    return jwt.sign(payload,SECRET,{expiresIn:"24h"});
+    return jwt.sign(payload,SECRET,{expiresIn:"24h"}); 
 }
 function userauthentication(req,res,next){
     const authHeader=req.headers.authorization;
@@ -52,13 +52,11 @@ const adminauthentication = (req,res,next)=>{
 }
 const authenticateJwt=(req,res,next)=>{
       const authHeader=req.headers.authorization;
-      
       if(authHeader)
       {
          const token= authHeader.split(' ')[1];
-        
          jwt.verify(token,SECRET,(err,user)=>{
-            if(err)
+            if(err)    
             { 
                return  res.status(403).json({message:"there is some error"});
             }
@@ -66,7 +64,6 @@ const authenticateJwt=(req,res,next)=>{
             {
                 req.user=user;
                 next();
-            //    return  res.status(201).json({message:"user logged in successfully",status:true});
             }
          })
       }
@@ -81,7 +78,6 @@ router.get("/admin/me",authenticateJwt,(req,res)=>{
     })
 })
 router.post("/admin/signup",async(req,res)=>{
-    console.log(req.body)
     const {username,password}=req.body;
     const newadmin= await Admin.findOne({username: username});
     if(newadmin){
@@ -189,7 +185,7 @@ router.get("/admin/courses",adminauthentication,async(req,res)=>{
  })
  router.get("/users/purchasedCourses",userauthentication,async(req,res)=>{
     const user= await User.findOne({username:req.user.username}).populate('purchasedCourses');
-    if(user)
+    if(user)     
     {
         res.json({purchasedCourses:user.purchasedCourses||[] });
     }
@@ -199,7 +195,6 @@ router.get("/admin/courses",adminauthentication,async(req,res)=>{
     }
  })
  router.get('/admin/course/:courseId',authenticateJwt,async (req, res)=>{
-    console.log("this is hello")
     const courseId=req.params.courseId;
     const course=await Course.findById(courseId);
     // console.log(course)
