@@ -6,7 +6,7 @@ import {useSetRecoilState, useRecoilValue} from "recoil";
 import { userState } from "../store/atoms/user.js";
 import { userEmailState } from "../store/selectors/userEmail"
 
-function Appbar({}) {
+function Appbar() {
     const navigate = useNavigate()
     const userLoading = useRecoilValue(isUserLoading);
     const userEmail = useRecoilValue(userEmailState);
@@ -55,7 +55,7 @@ function Appbar({}) {
                                 isLoading: false,
                                 userEmail: null
                             })
-                            window.location='/'
+                            navigate('/')
                         }}
                     >Logout</Button>
                 </div>

@@ -68,7 +68,7 @@ function Signin() {
                             userEmail: email,
                             isLoading: false
                         })
-                        navigate("/courses")
+                        navigate("/")
                     }}
 
                 > Signin</Button>

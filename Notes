@@ -1,0 +1,4 @@
+1. props drilling = when we pass the state variable as a props from one child to another child and so on
+2. recoil :---> state management library 
+   1. atoms :--> it is similar to state variable where we can set a unique key and default value to it.
+   2. selectors :--> it help us to select specific part of the atoms.  
