@@ -19,8 +19,19 @@ const coursesSchema = new mongoose.Schema({
     description:String,
     price:Number,
     imageLink:String,
-    publisher:Boolean
+    publisher:Boolean,
+    videos:[{
+        type:mongoose.Schema.Types.ObjectId,
+        ref:"videos"
+    }]
 })
+
+const videoSchema=mongoose.Schema({
+    lectureName:String,
+    videoUrl:String
+})
+
+const Video= mongoose.model('videos',videoSchema);
 const User= mongoose.model('user',userSchema);
 const Admin=mongoose.model('admin',adminSchema);
 const Course= mongoose.model('course',coursesSchema);
@@ -28,5 +39,6 @@ const Course= mongoose.model('course',coursesSchema);
 module.exports={
     User,
     Admin,
-    Course
+    Course,
+    Video
 }
