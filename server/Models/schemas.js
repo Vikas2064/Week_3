@@ -1,4 +1,4 @@
-const mongoose=require("mongoose");
+import  mongoose from  "mongoose";
 mongoose.connect("mongodb+srv://vikask200202:Mongodb123@cluster0.grsr6ry.mongodb.net/courses");
 const userSchema=new mongoose.Schema({
     username: {type:String},
@@ -31,14 +31,8 @@ const videoSchema=mongoose.Schema({
     videoUrl:String
 })
 
-const Video= mongoose.model('videos',videoSchema);
-const User= mongoose.model('user',userSchema);
-const Admin=mongoose.model('admin',adminSchema);
-const Course= mongoose.model('course',coursesSchema);
+export const Video= mongoose.model('videos',videoSchema);
+export const User = mongoose.model('user',userSchema);
+export const Admin = mongoose.model('admin',adminSchema);
+export const Course= mongoose.model('course',coursesSchema);
 
-module.exports={
-    User,
-    Admin,
-    Course,
-    Video
-}

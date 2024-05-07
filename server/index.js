@@ -1,12 +1,13 @@
-const express=require("express");
+import  express  from "express";
 const app= express();
-const bodyParser= require("body-parser");
-const courseRouter=require('./router')
+import bodyParser from "body-parser";
+import courseRouter from './routers/adminRouter.js';
+import  videoRouter from './routers/handleVideo.js' ;
 app.use(bodyParser.json());
-const cors=require('cors');
+import cors from 'cors';
 app.use(cors())
 app.use("/",courseRouter);
-
+app.use('/video',videoRouter);
 let port= 8080;
 app.listen(port,()=>{
     console.log(`listening at the port ${port}`)
