@@ -26,10 +26,16 @@ const coursesSchema = new mongoose.Schema({
     }]
 })
 
-const videoSchema=mongoose.Schema({
-    lectureName:String,
-    videoUrl:String
-})
+const videoSchema=mongoose.Schema(
+    {
+        lectureName:String,
+        fileName:String,
+        videoUrl:{
+            type:String
+        }
+        
+    }
+)
 
 export const Video= mongoose.model('videos',videoSchema);
 export const User = mongoose.model('user',userSchema);
