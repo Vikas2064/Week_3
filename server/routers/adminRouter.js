@@ -38,7 +38,14 @@ router.post("/admin/login", async (req, res) => {
 
 router.post('/admin/courses', adminauthentication, async (req, res) => {
     console.log(req.body)
-    const course = new Course(req.body);
+    const newCourse = {
+        title:req.body.title,
+        description:req.body.description,
+        price:req.body.price,
+        imageLink:req.body.imageLink,
+        videos:[]
+    }
+    const course = new Course(newCourse);
     await course.save()
     res.status(201).json({ message: "courses created successfully", courseId: course.id, status: true });
 })
